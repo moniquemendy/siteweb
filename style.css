@@ -1,0 +1,20 @@
+body
+{
+  background-image: url(picture/fond.jpg);
+  background-attachment: fixed;
+  cursor: url(picture/cursor/cursor.png), pointer;
+}
+
+h1
+{
+  text-align: center;	color: silver;
+}
+
+h2
+{
+  text-align: center; color: lightblue;
+}
+
+#topic
+{
+  text-align: center;
