@@ -35,25 +35,32 @@ require_once '_include/authenticate-user.php';
     <article>
       <h2>Pokedex</h2>
 
-      <!-- Ici, il faut faire un SELECT avec SQL pour obtenir la liste des pokemons (dans une variable $pokemons).
-      Puis, il faut faire une boucle for afin d'afficher leurs parametres et un lien pour chacun, dynamiquement. -->
-
       <table>
-        <tr>
-          <td>image de Boo</td>
-          <td>nom de Boo</td>
-          <td>description de Boo</td>
-          <td>dresseur de Boo</td>
-          <td><a href="pokemon.php?my_token=<?php echo $user['token']; ?>&pokemon_id=1">Detail</a></td>
-        </tr>
+
+        <?php
+                          // Chargement du legume...
+                          $sql = 'SELECT *
+                                  FROM `pokemons`';
+                          $req = $db->prepare($sql);
+                          $req->execute(array());
+                          // On affiche chaque legume un à un.
+                          while ($pokemon = $req->fetch())
+                          {
+                            ?>
+
+
 
         <tr>
-          <td>image de Mokumokuren</td>
-          <td>nom de Mokumokuren</td>
-          <td>description de Mokumokuren</td>
-          <td>dresseur de Mokumokuren</td>
-          <td><a href="pokemon.php?my_token=<?php echo $user['token']; ?>&pokemon_id=2">Detail</a></td>
+          <td><?php echo $pokemon['name'] ?></td>
+          <td>Il m'appartient ? <?php if ($user['id'] == $pokemon['user_id']) { echo 'oui'; } else { echo 'non'; } ?></td>
+          <td><a href="pokemon.php?my_token=<?php echo $user['token']; ?>&pokemon_id=<?php echo $pokemon['id']; ?>">Detail</a></td>
         </tr>
+
+        <?php
+                          }
+                          ?>
+
+
       </table>
     </article>
   </body>
